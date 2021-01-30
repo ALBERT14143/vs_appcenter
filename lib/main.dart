@@ -1,6 +1,11 @@
+import 'package:appcenter/appcenter.dart';
+import 'package:appcenter_analytics/appcenter_analytics.dart';
+import 'package:appcenter_crashes/appcenter_crashes.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  
   runApp(MyApp());
 }
 
@@ -50,6 +55,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  void initAppCenter() async{
+  final ios = defaultTargetPlatform == TargetPlatform.iOS;
+  var app_secret = ios ? "123cfac9-123b-123a-123f-123273416a48" : "f8f91b85-a270-4f9b-9965-d3850e5ebc23";
+
+  await AppCenter.start(app_secret, [AppCenterAnalytics.id, AppCenterCrashes.id]);
+}
+
+@override
+void initState(){
+  super.initState();
+  initAppCenter();
+}
   int _counter = 0;
 
   void _incrementCounter() {
